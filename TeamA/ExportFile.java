@@ -4,10 +4,10 @@ import java.util.Scanner;
 
 public class ExportFile {
     public static void main(String[] args) {
-        // สร้าง Scanner เพื่อรับข้อมูลจากผู้ใช้
         Scanner scanner = new Scanner(System.in);
         String fileName = "output.txt";
 
+        // exit เพื่อส่งข้อมูลเป็น.txt
         try (FileWriter writer = new FileWriter(fileName)) {
             System.out.println("Welcome to the Grading System! Type 'exit' to quit.\n");
 
@@ -25,8 +25,25 @@ public class ExportFile {
                 int birthYear = Integer.parseInt(scanner.nextLine());
 
                 // รับข้อมูล Software Testing Score
-                System.out.print("Enter Software Testing Score: ");
-                int score = Integer.parseInt(scanner.nextLine());
+                int score;
+                while (true) {
+                    System.out.print("Enter Software Testing Score (1-100): ");
+                    try {
+                        String scoreInput = scanner.nextLine();
+                        score = Integer.parseInt(scoreInput);
+
+                        // ตรวจสอบว่าคะแนนอยู่ในช่วง 1-100
+                        if (score < 1 || score > 100) {
+                            throw new IllegalArgumentException("Score must be between 1 and 100.");
+                        }
+
+                        break; // ถ้าคะแนนถูกต้อง ให้ออกจากลูป
+                    } catch (NumberFormatException e) {
+                        System.out.println("Error: Score must be a whole number.");
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Error: " + e.getMessage());
+                    }
+                }
 
                 // คำนวณอายุ
                 int currentYear = 2024; // ปีปัจจุบัน
@@ -67,7 +84,6 @@ public class ExportFile {
         } catch (IOException e) {
             System.err.println("An error occurred while writing to the file: " + e.getMessage());
         } finally {
-            // ปิด Scanner
             scanner.close();
         }
 
