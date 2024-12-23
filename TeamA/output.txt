@@ -1,0 +1,12 @@
+Name: Emilai
+Age: 27
+Software Testing Score: A
+---------------------
+Name: Porkkin
+Age: 24
+Software Testing Score: B+
+---------------------
+Name: Layla
+Age: 25
+Software Testing Score: C+
+---------------------
